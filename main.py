@@ -1,6 +1,19 @@
 import sqlite3
 import json
 
+"""
+if you don't want to dumps into json objects replace all json_obj with following code:
+
+This will be replaced
+json_obj = json.dumps(rows, sort_keys=True, indent=4)
+    print(json_obj)
+
+with this 
+for row in rows:
+    print(row)
+"""
+
+
 table_name = "albums"
 table_names = []
 
