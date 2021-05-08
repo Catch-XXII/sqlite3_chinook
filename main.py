@@ -32,6 +32,9 @@ def get_all_table_names(conn):
     for i, name in enumerate(from_table_names):
         print(i + 1, "=>", name)
     selection = int(input("Please select one of the tables above: ")) - 1
+    # check if selection between a valid range
+    if selection > len(from_table_names) or selection < 0:
+        raise Exception("index out of range")
     select_from_(from_table_names[selection], conn)
 
 
