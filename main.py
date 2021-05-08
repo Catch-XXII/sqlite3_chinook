@@ -32,8 +32,10 @@ def select_from_(name, conn):
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
-    json_obj = json.dumps(rows, sort_keys=True, indent=4)
-    print(json_obj)
+    columns = next(zip(*cur.description))
+    for row in rows:
+        row = dict(zip(columns, row))
+        print(json.dumps(row, sort_keys=True, indent=4))
 
 
 def get_all_table_names(conn):
@@ -94,10 +96,10 @@ def main():
     conn = create_connection(database)
     with conn:
         get_all_table_names(conn)
-        select_with_("Mozart", conn)
-        select_with_artist("3", conn)
-        select_with_album("3", conn)
-        select_all_albums(conn)
+        # select_with_("Mozart", conn)
+        # select_with_artist("3", conn)
+        # select_with_album("3", conn)
+        # select_all_albums(conn)
 
 
 if __name__ == '__main__':
