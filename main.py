@@ -35,7 +35,8 @@ def select_from_(name, conn):
     columns = next(zip(*cur.description))
     for row in rows:
         row = dict(zip(columns, row))
-        print(json.dumps(row, sort_keys=True, indent=4))
+        json_obj = json.dumps(row, sort_keys=True, indent=4)
+        print(json_obj)
 
 
 def get_all_table_names(conn):
@@ -60,8 +61,11 @@ def select_all_albums(conn):
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
-    json_obj = json.dumps(rows, sort_keys=True, indent=4)
-    print(json_obj)
+    columns = next(zip(*cur.description))
+    for row in rows:
+        row = dict(zip(columns, row))
+        json_obj = json.dumps(row, sort_keys=True, indent=4)
+        print(json_obj)
 
 
 def select_with_album(_id, conn):
@@ -69,8 +73,11 @@ def select_with_album(_id, conn):
     cur = conn.cursor()
     cur.execute(query, (_id,))
     rows = cur.fetchall()
-    json_obj = json.dumps(rows, sort_keys=True, indent=4)
-    print(json_obj)
+    columns = next(zip(*cur.description))
+    for row in rows:
+        row = dict(zip(columns, row))
+        json_obj = json.dumps(row, sort_keys=True, indent=4)
+        print(json_obj)
 
 
 def select_with_artist(_id, conn):
@@ -78,8 +85,11 @@ def select_with_artist(_id, conn):
     cur = conn.cursor()
     cur.execute(query, (_id,))
     rows = cur.fetchall()
-    json_obj = json.dumps(rows, sort_keys=True, indent=4)
-    print(json_obj)
+    columns = next(zip(*cur.description))
+    for row in rows:
+        row = dict(zip(columns, row))
+        json_obj = json.dumps(row, sort_keys=True, indent=4)
+        print(json_obj)
 
 
 def select_with_(title, conn):
@@ -87,19 +97,36 @@ def select_with_(title, conn):
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
-    json_obj = json.dumps(rows, sort_keys=True, indent=4)
-    print(json_obj)
+    columns = next(zip(*cur.description))
+    for row in rows:
+        row = dict(zip(columns, row))
+        json_obj = json.dumps(row, sort_keys=True, indent=4)
+        print(json_obj)
 
 
 def main():
     database = r"/Users/chinook.db"
     conn = create_connection(database)
     with conn:
+        print("------------------------Get All Table Names-------------------------------------")
         get_all_table_names(conn)
-        # select_with_("Mozart", conn)
-        # select_with_artist("3", conn)
-        # select_with_album("3", conn)
-        # select_all_albums(conn)
+        print("------------------------Get All Table Names-------------------------------------")
+
+        print("------------------------Select With Album Title---------------------------------")
+        select_with_("Mozart", conn)
+        print("------------------------Select With Album Title---------------------------------")
+
+        print("------------------------Select With Artist Id-----------------------------------")
+        select_with_artist("3", conn)
+        print("------------------------Select With Artist Id-----------------------------------")
+
+        print("------------------------Select With Album Id------------------------------------")
+        select_with_album("3", conn)
+        print("------------------------Select With Album Id------------------------------------")
+
+        print("------------------------Select All Albums---------------------------------------")
+        select_all_albums(conn)
+        print("------------------------Select All Albums---------------------------------------")
 
 
 if __name__ == '__main__':
