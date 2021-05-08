@@ -76,7 +76,7 @@ def select_with_(title, conn):
 
 
 def main():
-    database = r"/Users/cgk/Desktop/myVueJsApp/chinook.db"
+    database = r"/Users/chinook.db"
     conn = create_connection(database)
     with conn:
         get_all_table_names(conn)
