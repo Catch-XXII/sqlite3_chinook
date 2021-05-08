@@ -1,7 +1,7 @@
 import sqlite3
 
 table_name = "albums"
-all_table_names = []
+from_table_names = []
 
 
 def create_connection(db_file):
@@ -28,11 +28,11 @@ def get_all_table_names(conn):
     cur.execute(query)
     rows = cur.fetchall()
     for row in rows:
-        all_table_names.append(str(row).strip("(',')").title())
-    for i, name in enumerate(all_table_names):
+        from_table_names.append(str(row).strip("(',')").title())
+    for i, name in enumerate(from_table_names):
         print(i + 1, "=>", name)
     selection = int(input("Please select one of the tables above: ")) - 1
-    select_from_(all_table_names[selection], conn)
+    select_from_(from_table_names[selection], conn)
 
 
 def select_all_albums(conn):
