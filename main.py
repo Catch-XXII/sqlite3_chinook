@@ -1,7 +1,8 @@
 import sqlite3
+import json 
 
 table_name = "albums"
-from_table_names = []
+table_names = []
 
 
 def create_connection(db_file):
@@ -29,14 +30,14 @@ def get_all_table_names(conn):
     rows = cur.fetchall()
     for row in rows:
         beautify = str(row).strip("(',')").title()
-        from_table_names.append(beautify)
-    for i, name in enumerate(from_table_names):
+        table_names.append(beautify)
+    for i, name in enumerate(table_names):
         print(i + 1, "=>", name)
     selection = int(input("Please select one of the tables above: ")) - 1
     # check if selection between a valid range
-    if selection > len(from_table_names) or selection < 0:
+    if selection > len(table_names) or selection < 0:
         raise Exception("index out of range")
-    select_from_(from_table_names[selection], conn)
+    select_from_(table_names[selection], conn)
 
 
 def select_all_albums(conn):
@@ -84,4 +85,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
