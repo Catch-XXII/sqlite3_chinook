@@ -28,7 +28,8 @@ def get_all_table_names(conn):
     cur.execute(query)
     rows = cur.fetchall()
     for row in rows:
-        from_table_names.append(str(row).strip("(',')").title())
+        beautify = str(row).strip("(',')").title()
+        from_table_names.append(beautify)
     for i, name in enumerate(from_table_names):
         print(i + 1, "=>", name)
     selection = int(input("Please select one of the tables above: ")) - 1
@@ -75,7 +76,7 @@ def select_with_(title, conn):
 
 
 def main():
-    database = r"/Users/chinook.db"
+    database = r"/Users/cgk/Desktop/myVueJsApp/chinook.db"
     conn = create_connection(database)
     with conn:
         get_all_table_names(conn)
